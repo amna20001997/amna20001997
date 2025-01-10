@@ -46,15 +46,42 @@ This function copies content between file descriptors.
 
 # word_count
 
-The program performs the following tasks:
+This program is a simple implementation of the wc command. It counts the number of lines, words, and characters (bytes) in text files provided as command-line arguments or reads from standard input if no files are specified. The program also supports options to display specific counts (-l for lines, -w for words, -c for characters).
+ 
+## Features 
 
-Counts lines, words, and characters in files specified via command-line arguments.
+Count lines, words, and characters from one or multiple files.
 
-Supports reading from stdin when no files are provided.
+Display individual file counts and the total for all files.
 
-Includes options to display specific counts (-l, -w, -c).
+Read from standard input if no files are specified.
 
-Handles errors and edge cases gracefully.
+Options to show specific counts (-l, -w, -c).
+
+Handles error conditions like inaccessible files gracefully.
+
+Requirements
+
+C compiler
+
+POSIX-compliant operating system (Linux, macOS, etc.)
+
+Options
+
+-l: Display the number of lines.
+
+-w: Display the number of words.
+
+-c: Display the number of characters (bytes).
+
+If no options are specified, all counts (lines, words, characters) are displayed.
+
+Error Handling
+
+Displays an error message if a file cannot be opened.
+
+Gracefully handles invalid input and unknown options.
+
 
 
 # Core Functionality
@@ -121,20 +148,9 @@ Missing arguments or invalid files.
 
 ## word_count
 
-1. Single File
-Command: ./word_count file.txt
-Expected Output: Line, word, and character counts for file.txt.
-
-
-2. Multiple Files
-Command: ./word_count file1.txt file2.txt
-Expected Output: Individual counts for each file and a summary total.
-
-
-3. Standard Input
-Command: ./word_count
-Input: Text via stdin.
-Expected Output: Line, word, and character counts for the input text.
-
-
-
+The program has been tested with the following scenarios:
+Test Case 1: Single line, single word
+Test Case 2: Multiple lines and words
+Test Case 3: Empty file
+Test Case 4: File with only spaces and newlines
+Test Case 5: File with mixed content
