@@ -44,7 +44,7 @@ This function copies content between file descriptors.
 
 ---
 
-## word_count
+# word_count
 
 The program performs the following tasks:
 
@@ -57,7 +57,7 @@ Includes options to display specific counts (-l, -w, -c).
 Handles errors and edge cases gracefully.
 
 
-Core Functionality
+## Core Functionality
 
 int word_count(int fd, int *lines, int *words, int *bytes);
 
@@ -66,7 +66,7 @@ This function calculates line, word, and byte counts from a file descriptor.
 
 ---
 
-Complete Specification
+## Complete Specification
 
 Ambiguities Addressed
 
@@ -80,7 +80,7 @@ Error Handling: Comprehensive handling of missing arguments, invalid file paths,
 
 ---
 
-Known Bugs or Problems
+## Known Bugs or Problems
 
 No identified bugs or missing features at the time of submission.
 
@@ -88,9 +88,9 @@ No identified bugs or missing features at the time of submission.
 
 ---
 
-Testing
+# Testing
 
-my_copy
+## my_copy
 
 1. Basic Copying
 Command: ./my_copy source.txt dest.txt
@@ -119,7 +119,7 @@ Missing arguments or invalid files.
 
 ---
 
-word_count
+## word_count
 
 1. Single File
 Command: ./word_count file.txt
