@@ -57,7 +57,7 @@ Includes options to display specific counts (-l, -w, -c).
 Handles errors and edge cases gracefully.
 
 
-## Core Functionality
+# Core Functionality
 
 int word_count(int fd, int *lines, int *words, int *bytes);
 
