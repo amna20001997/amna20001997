@@ -1,136 +1,140 @@
-#
-# Pipe Execution Program
-
-## Objective
-This project demonstrates how to:
-1. Use the `fork()` system call to create child processes.
-2. Establish a pipe between two processes for inter-process communication (IPC).
-3. Redirect data from one process to another using `dup()` and `dup2()` system calls.
-
----
+# Project-15: Operating System Calls (copy and wc)
 
 ## Group Information
-- **Group Number**: 16
-- **Index Numbers**:
-17-645
-18-626
-18-625
-18-635   
-- **Members**:
-1_ Samah Adil Mohamed Abdelaal 17-645
-2_ Amna Abbas Hassan Bashir 18-635
-3_ Yousif hafiz abdalwahab hafiz 18-626
-4_Noor Tilal Mohammed Ahmed 18-625  
+
+**Group Number**: [15]  
+**Group Members and Index Numbers**:  
+- Member 1: [Amna Abbass HassanBasheer], [18-635]  
+- Member 2: [Samah Adil Mohamed Abdelaal], [17-645]  
+- Member 3: [Yousif hafiz abdalwahab hafiz],[18-626]
+-Member 4 :[Noor Tilal Mohammed Ahmed],[18-625]
 
 ---
 
-## Work Division
-- **[Member 1]**: Implemented the creation of pipes and child processes  
-- **[Member 2]**: work with member 1 in problem 1 , implemented the creation of pipes and child processes
-- **[Member 3]**: Implemented the creation of Problem 2 
-- **[Member 4]**: Sharing in Coding of Problem 2 and Created this README file and documented the design overview.  
+## Project Description
+
+This project implements two system utilities using basic operating system calls:
+
+1. **my_copy**: A program replicating the functionality of the `cp` command.
+2. **word_count**: A program replicating the functionality of the `wc` command.
+
+### Objectives
+- Enhance understanding of system calls (`open`, `read`, `write`, `close`, `fstat`).
+- Handle command-line arguments effectively.
+- Implement robust error handling and program interaction.
 
 ---
+
 ## Design Overview
-### Problem 1
-1. **Child Process Creation**:  
-   Create two child processes from the same parent process.
 
-2. **Parent Process Behavior**:  
-   - Waits for both child processes to terminate.  
-   - Prints the exit status of each child upon termination.
+### **my_copy**
+The program performs the following tasks:
+- Copies a source file to a destination file, ensuring both files are of equal size.
+- Includes an option `-p` to copy file permissions using `fstat`.
+- Handles missing or invalid arguments with appropriate user guidance.
+- Prompts for overwrite confirmation if the destination file exists.
+- Ensures cleanup during interruptions (e.g., `Ctrl+C`).
 
-### Problem 2
-1. **Command Parsing**:  
-   Separate commands based on the pipe (`|`) character.
+#### Core Functionality
+```c
+int my_copy(int source_fd, int dest_fd);
 
-2. **Pipe Creation**:  
-   Use the `pipe()` system call to establish communication between processes.
+This function copies content between file descriptors.
 
-3. **Child Processes Execution**:  
-   - The first child executes the command before the pipe.  
-   - The second child executes the command after the pipe and reads input from the first command.
-
-4. **Parent Process Behavior**:  
-   Waits for both child processes to finish execution.
-
-5. **Error Handling**:  
-   Handle invalid commands or unexpected inputs.
 
 ---
 
-## Complete Specification
-### Problem 1
-1. Create two child processes from the same parent process.
-2. Ensure the parent waits for both child processes to complete.
-3. Print the exit status of each child upon termination.
+## word_count
 
-### Problem 2
-1. Execute commands passed as command-line arguments separated by a pipe (`|`).
-2. The first child executes the first command and passes its output through the pipe.
-3. The second child reads the input from the pipe and executes the second command.
-4. The parent waits for both child processes to finish.
+The program performs the following tasks:
 
----
+Counts lines, words, and characters in files specified via command-line arguments.
 
-## Testing
-### Functionality Testing
-1. **Valid Commands**:  
-   Example: `ls | grep .c`  
-   Expected Output: Files matching the pattern `.c` are listed.
+Supports reading from stdin when no files are provided.
 
-2. **Invalid Commands**:  
-   Example: `invalid_cmd | grep`  
-   Expected Output: Error message indicating an invalid command.
+Includes options to display specific counts (-l, -w, -c).
 
-3. **Error Handling**:  
-   Simulate pipe creation failure and verify proper error messages.
+Handles errors and edge cases gracefully.
 
-4. **Edge Cases**:  
-   Empty input or no pipe character results in an error.
+
+Core Functionality
+
+int word_count(int fd, int *lines, int *words, int *bytes);
+
+This function calculates line, word, and byte counts from a file descriptor.
+
 
 ---
 
-## Known Bugs or Limitations
-1. The program does not handle multiple pipes (e.g., `ls | grep | wc`).
-2. Partial handling of commands with excessive arguments or invalid syntax.
+Complete Specification
+
+Ambiguities Addressed
+
+Permission Copying: Uses the fstat system call to match the destination file's permissions with the source file.
+
+User Prompts: Overwrite confirmation is case-insensitive (Y/y for yes, N/n or Enter for no).
+
+Error Handling: Comprehensive handling of missing arguments, invalid file paths, and unexpected signals.
+
+
 
 ---
 
-## Pre-requisites
-1. Familiarity with system calls (`fork`, `wait`, `pipe`, `dup`, `dup2`, `execvp`).
-2. Knowledge of inter-process communication (IPC).
-3. Ability to read Unix manual pages.
+Known Bugs or Problems
+
+No identified bugs or missing features at the time of submission.
+
+
 
 ---
 
-## Test Cases
-### Problem 1
-1. **Two child processes successfully created**:  
-   Input: Test program logic for child creation.  
-   Output: Parent waits and prints exit statuses of both children.
+Testing
 
-### Problem 2
-1. **Valid Command Execution**:  
-   Input: `ls | wc`  
-   Output: Correct word count.
+my_copy
 
-2. **Invalid Command Handling**:  
-   Input: `invalid_cmd | wc`  
-   Output: Error message.
+1. Basic Copying
+Command: ./my_copy source.txt dest.txt
+Expected Output: File copied successfully.
 
-3. **Pipe Failure**:  
-   Simulate pipe creation failure during execution.
 
-## Compilation and Execution
-To compile the program:
-```bash
-make
+2. Permission Copying
+Command: ./my_copy -p source.txt dest.txt
+Expected Output: Destination file permissions match source file.
 
-To run the program with commands:
 
-./pipe_program "command1 | command2"
+3. Overwrite Confirmation
+Command: ./my_copy source.txt dest.txt
+Scenario: Destination file exists.
+Input: Y or N
+Expected Output: File overwritten or process exited without copying.
 
-For example:
-./pipe_program "ls | wc -l"
+
+4. Error Handling
+
+Missing arguments or invalid files.
+
+
+
+
+
+---
+
+word_count
+
+1. Single File
+Command: ./word_count file.txt
+Expected Output: Line, word, and character counts for file.txt.
+
+
+2. Multiple Files
+Command: ./word_count file1.txt file2.txt
+Expected Output: Individual counts for each file and a summary total.
+
+
+3. Standard Input
+Command: ./word_count
+Input: Text via stdin.
+Expected Output: Line, word, and character counts for the input text.
+
+
 
