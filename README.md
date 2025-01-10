@@ -48,7 +48,7 @@ This function copies content between file descriptors.
 
 This program is a simple implementation of the wc command. It counts the number of lines, words, and characters (bytes) in text files provided as command-line arguments or reads from standard input if no files are specified. The program also supports options to display specific counts (-l for lines, -w for words, -c for characters).
  
-## Features 
+# Features 
 
 Count lines, words, and characters from one or multiple files.
 
@@ -93,7 +93,7 @@ This function calculates line, word, and byte counts from a file descriptor.
 
 ---
 
-## Complete Specification
+# Complete Specification
 
 Ambiguities Addressed
 
@@ -117,7 +117,7 @@ No identified bugs or missing features at the time of submission.
 
 # Testing
 
-## my_copy
+# my_copy
 
 1. Basic Copying
 Command: ./my_copy source.txt dest.txt
@@ -146,7 +146,7 @@ Missing arguments or invalid files.
 
 ---
 
-## word_count
+# word_count
 
 The program has been tested with the following scenarios:
 Test Case 1: Single line, single word
