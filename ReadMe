@@ -68,9 +68,9 @@ This function calculates line, word, and byte counts from a file descriptor.
 
 ---
 
-Complete Specification
+## Complete Specification
 
-Ambiguities Addressed
+### Ambiguities Addressed
 
 Permission Copying: Uses the fstat system call to match the destination file's permissions with the source file.
 
@@ -90,9 +90,9 @@ No identified bugs or missing features at the time of submission.
 
 ---
 
-Testing
+## Testing
 
-my_copy
+### my_copy
 
 1. Basic Copying
 Command: ./my_copy source.txt dest.txt
@@ -121,7 +121,7 @@ Missing arguments or invalid files.
 
 ---
 
-word_count
+### word_count
 
 1. Single File
 Command: ./word_count file.txt
